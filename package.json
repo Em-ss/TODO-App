@@ -11,6 +11,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "stylelint-config-prettier": "^9.0.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -19,7 +20,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
-    "lint:fix": "eslint ./src -fix --color"
+    "lint:fix": "eslint ./src --fix --color",
+    "prettier": "prettier --write src/**/*.js",
+    "prepare": "husky install",
+    "scriptname": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -46,6 +50,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.1",
@@ -57,6 +62,5 @@
       "npm run lint:fix",
       "git add"
     ]
-   }
+  }
 }
-

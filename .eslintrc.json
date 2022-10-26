@@ -10,21 +10,31 @@
       "plugin:prettier/recommended",
       "plugin:import/errors",
       "plugin:import/warnings"
+      
+    // "stylelint-config-clean-order",
+    // "stylelint-config-prettier"
+      // "prettier"
     ],
     "parserOptions": {
       "ecmaFeatures": {
         "jsx": true
       },
       "ecmaVersion": 12,
-      "sourceType": "module"
+      "sourceType": "module",
+      "requireConfigFile": false,
+      "babelOptions": {
+      "presets": ["@babel/preset-react"]
+       }
+      // "parser": "babel-eslint"
     },
     "plugins": ["react", "prettier", "import"],
     "rules": {
-      "indent": ["error", 2],
+      // "parser": "off",
+      "indent": "off",
       "prettier/prettier": "error",
       "linebreak-style": [0, "unix"],
       "quotes": ["error", "single"],
-      "semi": ["error", "never"],
+      "semi": ["error", "always"],
       "react/react-in-jsx-scope": "off",
       "react/prop-types": 0,
       "import/no-unresolved": [2, { "caseSensitive": false }],
@@ -50,6 +60,14 @@
           "extensions": [".js", ".jsx", ".ts", ".tsx"],
           "moduleDirectory": ["node_modules", "src/"]
         }
-      }
+      },
+      
+        "react": {
+          "version": "detect"
+        }
+      
+      // "react": {
+      //   "version": "999.999.999"
+      // }
     }
   }
