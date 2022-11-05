@@ -19,7 +19,12 @@ export class Task extends Component {
 
   render() {
     const { label, onDeleted, completed, onToggleDone } = this.props;
+<<<<<<< HEAD
 
+=======
+    console.log('ads');
+    console.log('ads');
+>>>>>>> 759bccc (First22)
     let classNames = '';
     if (completed) {
       classNames += 'completed';
