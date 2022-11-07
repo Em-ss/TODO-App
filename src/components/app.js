@@ -89,7 +89,7 @@ export class App extends Component {
   // changeTime() {
   //   setInterval(() => {
   //     this.setState({});
-  //   }, 1000);
+  //   }, 1000)
   // }
 
   render() {
