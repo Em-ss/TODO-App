@@ -10,24 +10,25 @@ export class App extends Component {
     this.maxId = 100;
     this.state = {
       todoData: [
-        this.createTodoItem('Drink Coffee'),
-        this.createTodoItem('Make Awesome App'),
-        this.createTodoItem('Have a lunch'),
+        // this.createTodoItem('Drink Coffee'),
+        // this.createTodoItem('Make Awesome App'),
+        // this.createTodoItem('Have a lunch'),
       ],
       filter: 'all',
     };
   }
-  onItemAdded(label) {
+  onItemAdded(label, dateStart) {
     this.setState((state) => {
-      const item = this.createTodoItem(label);
+      const item = this.createTodoItem(label, dateStart);
 
       return { todoData: [...state.todoData, item] };
     });
   }
 
-  createTodoItem(label) {
+  createTodoItem(label, dateStart) {
     return {
       label,
+      dateStart,
       completed: false,
       id: this.maxId++,
       date: new Date(),
@@ -85,43 +86,33 @@ export class App extends Component {
     }
   }
 
+  // changeTime() {
+  //   setInterval(() => {
+  //     this.setState({});
+  //   }, 1000);
+  // }
+
   render() {
     const { todoData, filter } = this.state;
     const filterF = this.filterItems(todoData, filter);
     const value = todoData.filter((elem) => elem.completed).length;
-<<<<<<< HEAD
-
-=======
-    console.log('as');
->>>>>>> 759bccc (First22)
+    // console.log(dateStart);
     return (
       <div>
         <NewTaskForm onItemAdded={this.onItemAdded.bind(this)} />
         <section className="main">
-<<<<<<< HEAD
           <TaskList
             todos={filterF}
             onDeleted={this.deleteItem.bind(this)}
             onToggleDone={this.onToggleDone.bind(this)}
           />
-=======
->>>>>>> 759bccc (First22)
+
           <Footer
             filter={filter}
             onFilterChange={this.onFilterChange.bind(this)}
             deleteAll={this.deleteAll.bind(this)}
             value={value}
-<<<<<<< HEAD
           />
-=======
-          >
-            <TaskList
-              todos={filterF}
-              onDeleted={this.deleteItem.bind(this)}
-              onToggleDone={this.onToggleDone.bind(this)}
-            />
-          </Footer>
->>>>>>> 759bccc (First22)
         </section>
       </div>
     );
