@@ -25,3 +25,4 @@ yarn-error.log*
 =======
 node_modules
 >>>>>>> 759bccc (First22)
+.vercel

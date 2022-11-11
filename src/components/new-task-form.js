@@ -21,6 +21,7 @@ export class NewTaskForm extends Component {
     this.setState({
       label: e.target.value,
     });
+    console.log(this.state.label);
   }
   onLabelChangeMin(e) {
     this.setState({
