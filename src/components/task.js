@@ -1,82 +1,62 @@
-import React, { Component } from 'react';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import React, { useEffect, useState } from 'react';
 
-export class Task extends Component {
-  constructor() {
-    super();
-    this.state = {
-      result: 'less than 1 seconds',
-      stop: '',
-      time: new Date('1995-12-17T03:00:00'),
-    };
-    // this.time = this.props.dateStart;
+export const Task = ({ label, onDeleted, completed, onToggleDone, dateStart, date }) => {
+  const [result, setResult] = useState('less than 1 seconds');
+  const [stop, setStop] = useState('');
+  const [time, setTime] = useState(dateStart);
+  const [chek, setChek] = useState(true);
+
+  let classNames = '';
+  if (completed) {
+    classNames += 'completed';
   }
 
-  startTimer() {
-    const startInterval = setInterval(() => {
-      console.log('asd');
-      this.setState({
-        time: new Date(this.state.time - new Date(2013, 2, 1, 1, 0, 1)),
-      });
-    }, 1000);
-    this.setState({
-      stop: startInterval,
-    });
-  }
+  const timer = time.getMinutes();
+  const timer1 = time.getSeconds();
 
-  deletedTimer() {
-    clearInterval(this.state.stop);
-    this.setState({
-      stop: undefined,
-    });
-  }
+  const startTimer = () => {
+    setChek(false);
+  };
 
-  componentDidMount() {
-    this.setState({
-      time: this.props.dateStart,
-    });
-    setInterval(() => {}, 5000);
-  }
+  const deletedTimer = () => {
+    clearInterval(stop);
+    setStop(undefined);
+    setChek(true);
+  };
 
-  render() {
-    const { label, onDeleted, completed, onToggleDone } = this.props;
-
-    let classNames = '';
-    if (completed) {
-      classNames += 'completed';
+  useEffect(() => {
+    if (!chek) {
+      const startInterval = setInterval(() => {
+        setTime(new Date(time - new Date(2013, 2, 1, 1, 0, 1)));
+      }, 1000);
+      setStop(startInterval);
     }
-    // console.log(this.props.dateStart);
-    const timer = this.state.time.getMinutes();
-    const timer1 = this.state.time.getSeconds();
 
-    return (
-      <li className={classNames}>
-        <div className="view">
-          <input className="toggle" type="checkbox" />
-          <label>
-            <span className="title" onClick={onToggleDone}>
-              {label}
-            </span>
-            <span className="description">
-              <button
-                className="icon icon-play"
-                onClick={this.state.stop ? null : this.startTimer.bind(this)}
-                // onChange={this.onLabelChange.bind(this)}
-              ></button>
-              <button
-                className="icon icon-pause"
-                onClick={this.deletedTimer.bind(this)}
-                // onChange={this.onLabelChange.bind(this)}
-              ></button>
-              {this.state.time.getMinutes() == 0 && this.state.time.getSeconds() == 0
-                ? this.deletedTimer.bind(this)()
-                : ' ' + ' ' + timer + ':' + timer1}
-            </span>
-            <span className="description"> {this.state.result} </span>
-          </label>
-          <button className="icon icon-edit"></button>
-          <button className="icon icon-destroy" onClick={onDeleted}></button>
-        </div>
-      </li>
-    );
-  }
-}
+    setInterval(() => {
+      setResult(formatDistanceToNow(date, { includeSeconds: true }));
+    }, 5000);
+    return clearInterval(stop);
+  }, [chek, time]);
+
+  return (
+    <li className={classNames}>
+      <div className="view">
+        <input className="toggle" type="checkbox" />
+        <label>
+          <span className="title" onClick={onToggleDone}>
+            {label}
+          </span>
+          <span className="description">
+            <button className="icon icon-play" onClick={stop ? null : startTimer}></button>
+            <button className="icon icon-pause" onClick={deletedTimer}></button>
+            {time.getMinutes() == 0 && time.getSeconds() == 0 ? deletedTimer : ' ' + ' ' + timer + ':' + timer1}
+          </span>
+          <span className="description"> {result} </span>
+        </label>
+        <button className="icon icon-edit"></button>
+        <button className="icon icon-destroy" onClick={onDeleted}></button>
+      </div>
+    </li>
+  );
+};
